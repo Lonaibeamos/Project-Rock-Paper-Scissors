@@ -28,5 +28,5 @@
 
 # Step 14: write a function named playGame that calls function playRound 5 times
 
-# Step 15:
+# Step 15: call that function
 
