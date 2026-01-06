@@ -1,89 +1,102 @@
-const cont = document.getElementById("container");
-const btn1 = document.querySelector('#Btn1');
-const btn2 = document.querySelector('#Btn2');
-const btn3 = document.querySelector('#Btn3');
-const resultDiv = document.querySelector('#result');
-
 function getComputerChoice(){
-    const ComputerChoice = Math.floor(Math.random() * 3) + 1;
-    switch(ComputerChoice){
+    let random  = Math.floor(Math.random() * 3) + 1
+    switch(random){
         case 1:
-            return 'rock';
+             return "rock";
         case 2:
-            return 'paper';
-        case 3:
-            return 'scissors';
-       // default: break;
-    }
-}
-console.log(getComputerChoice());
-
-function getHumanChoice(){
-    const HumanChoice = prompt("Rock,paper or scissors");
-    HumanChoice = HumanChoice.toLowerCase().trim();
-    switch(HumanChoice){
-        case "rock":
-            return "rock";
-        case "paper":
             return "paper";
-        case "scissors":
+        case 3:
             return "scissors";
-        default: break;
+        default:
+            break;
     }
 }
 
 
-const humanScore = 0;
-const computerScore = 0;
+let humanScore = 0;
+let computerScore = 0;
 
 function playRound(humanChoice,computerChoice){
-    console.log(`             You:         ${humanChoice} | Computer: ${computerChoice}`);
-    if(humanChoice == "rock" && computerChoice == "rock" || humanChoice == "paper" && computerChoice == "paper" || humanChoice == "scissors" && computerChoice == "scissors" ){
-        console.log("Draw!");
-        return;
-    }
-    else if(humanChoice == "rock" && computerChoice == "paper"){
-       console.log("You lose! Paper beats Rock.");
-       computerScore++;
-    }
-    else if(humanChoice == "paper" && computerChoice == "scissors"){
-        console.log("You lose! scissors beats paper.");
-        computerScore++;
-    }
-    else if(humanChoice == "scissors" && computerChoice == "rock"){
-        console.log("You lose! rock beats scissors.");  
-        computerScore++;
-    }
-     else if(computerChoice == "rock" && humanChoice == "paper"){
-       console.log("You won! Paper beats Rock.");
-       humanScore++;
-    }
-    else if(computerChoice == "paper" && humanChoice == "scissors"){
-        console.log("You won! scissors beats paper.");
-        humanScore++;
-    }
-    else if(computerChoice == "scissors" && humanChoice == "rock"){
-        console.log("You won! rock beats scissors.");  
-        humanScore++;
-    }
 
+  if(humanScore >= 5 || computerScore >= 5){
+    return "Game Over! Refresh to play again.";
+  }
+
+  if (humanChoice === computerChoice) {
+    console.log('its a tie');
+    return "tie"
+  }
+
+ if (humanChoice === 'rock' && computerChoice === 'paper') {
+    console.log('you lost paper beats rock');
+    computerScore++;
+  }
+
+  if (humanChoice === 'paper' && computerChoice === 'scissors') {
+    console.log('you lost scissors beats paper');
+     computerScore++;
+  }
+  
+
+  if (humanChoice === 'scissors' && computerChoice === 'rock') {
+    console.log('you lost rock beats scissors');
+    computerScore++;
+  }
+
+  if (humanChoice === 'rock' && computerChoice === 'scissors') {
+    console.log('you win rock beats scissors');
+     humanScore++;
+  }
+
+  if (humanChoice === 'paper' && computerChoice === 'rock') {
+    console.log('you win paper beats rock');
+    humanScore++;
+  }
+
+  if (humanChoice === 'scissors' && computerChoice === 'paper') {
+    console.log('you win scissors beats paper');
+     humanScore++;
+  }
+
+
+  let result = `||computerScore: ${computerScore} || humanScore: ${humanScore}`;
+   
+  if (humanScore == 5 || computerScore == 5) {
+
+  let final = (humanScore > computerScore) ? `human won ${humanScore} - ${computerScore}` : `computer won ${computerScore} - ${humanScore}`;
+   result += `||  \n       \n👉 Winner:[${final}]`;
+  return result;
+  }
+
+  return result;
 }
-function playGame(){
-    console.log(`  |---------human score--------|---------computer score---------|`);
-            const a = getComputerChoice();
-            const b = getHumanChoice();
-            playRound(b,a);
-        console.log(`|---------${humanScore}------|----------${computerScore}------|`)
-        //console.log(`|----------------------------|--------------------------------|`)
-    console.log("--------------------finalScore---------------------");
-    console.log(`------human: ${humanScore}--- Computer---${computerScore}`);
+/*
+The KEY RULE (this is the brain-breaker)
+
+Function calls happen BEFORE assignment.
+so when you do this:
+let result = playRound('rock', getComputerChoice());
+the function playRound is called first, and only after it returns a value is that value assigned to result.
+This means that any side effects (like updating scores) happen during the function call, not during the assignment.
+*/
+
+let div = document.querySelector('div')
+document.getElementById("buttons").addEventListener('click',(e) => {
+    let button = e.target.id;
+    let para = document.createElement('p');
+    switch(button){
+        case 'btn1':
+       para.textContent = playRound('rock',getComputerChoice());
+            break;
+        case 'btn2':
+         para.textContent = playRound('paper',getComputerChoice());
+            break;
+        case 'btn3':
+         para.textContent = playRound('scissors',getComputerChoice());
+            break;
+        default:
+            return "Click only the buttons BREV!!!";
+    }
+    div.appendChild(para);
 }
-
-playGame();
-
-cont.addEventListener('click')
-
-
-btn1.addEventListener('click',playRound());
-btn2.addEventListener('click',playRound());
-btn3.addEventListener('click',playRound());
+)
