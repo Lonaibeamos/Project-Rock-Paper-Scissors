@@ -1,5 +1,11 @@
+const cont = document.getElementById("container");
+const btn1 = document.querySelector('#Btn1');
+const btn2 = document.querySelector('#Btn2');
+const btn3 = document.querySelector('#Btn3');
+const resultDiv = document.querySelector('#result');
+
 function getComputerChoice(){
-    let ComputerChoice = Math.floor(Math.random() * 3) + 1;
+    const ComputerChoice = Math.floor(Math.random() * 3) + 1;
     switch(ComputerChoice){
         case 1:
             return 'rock';
@@ -13,7 +19,7 @@ function getComputerChoice(){
 console.log(getComputerChoice());
 
 function getHumanChoice(){
-    let HumanChoice = prompt("Rock,paper or scissors");
+    const HumanChoice = prompt("Rock,paper or scissors");
     HumanChoice = HumanChoice.toLowerCase().trim();
     switch(HumanChoice){
         case "rock":
@@ -27,8 +33,8 @@ function getHumanChoice(){
 }
 
 
-let humanScore = 0;
-let computerScore = 0;
+const humanScore = 0;
+const computerScore = 0;
 
 function playRound(humanChoice,computerChoice){
     console.log(`             You:         ${humanChoice} | Computer: ${computerChoice}`);
@@ -64,15 +70,20 @@ function playRound(humanChoice,computerChoice){
 }
 function playGame(){
     console.log(`  |---------human score--------|---------computer score---------|`);
-    for(let i = 0; i < 5; i++){
-            let a = getComputerChoice();
-            let b = getHumanChoice();
+            const a = getComputerChoice();
+            const b = getHumanChoice();
             playRound(b,a);
         console.log(`|---------${humanScore}------|----------${computerScore}------|`)
         //console.log(`|----------------------------|--------------------------------|`)
-    }
     console.log("--------------------finalScore---------------------");
     console.log(`------human: ${humanScore}--- Computer---${computerScore}`);
 }
 
 playGame();
+
+cont.addEventListener('click')
+
+
+btn1.addEventListener('click',playRound());
+btn2.addEventListener('click',playRound());
+btn3.addEventListener('click',playRound());

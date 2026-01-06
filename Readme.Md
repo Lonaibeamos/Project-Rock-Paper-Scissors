@@ -12,7 +12,7 @@
 
 # Step-6:  use prompt to get the users choice
 
-# Step-7: let us assume the user will always enter a valid choice.
+# Step-7: const us assume the user will always enter a valid choice.
 
 # Step-8: "Test the function by calling it"
 
